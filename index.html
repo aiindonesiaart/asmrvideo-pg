@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASMR Video Prompt Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f3f3;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #5c4d7d;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    select, button, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background: #5c4d7d;
+      color: white;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    button:hover {
+      background: #483c64;
+    }
+    textarea {
+      height: 180px;
+      resize: none;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>🎧 ASMR Video Prompt Generator</h2>
+
+    <label for="theme">ASMR Theme</label>
+    <select id="theme">
+      <option value="Mic Brushing">Mic Brushing</option>
+      <option value="Mouth Sounds">Mouth Sounds</option>
+      <option value="Ear Cleaning Roleplay">Ear Cleaning Roleplay</option>
+      <option value="Tapping & Crinkle">Tapping & Crinkle</option>
+      <option value="Whisper Trigger Words">Whisper Trigger Words</option>
+    </select>
+
+    <label for="sound">Sound Type</label>
+    <select id="sound">
+      <option value="Soft Taps">Soft Taps</option>
+      <option value="Wet Gel Sounds">Wet Gel Sounds</option>
+      <option value="Paper Crinkles">Paper Crinkles</option>
+      <option value="Gentle Brushing">Gentle Brushing</option>
+      <option value="Slow Whisper">Slow Whisper</option>
+    </select>
+
+    <label for="mood">Video Mood</label>
+    <select id="mood">
+      <option value="Sleep Aid">Sleep Aid</option>
+      <option value="Deep Relaxation">Deep Relaxation</option>
+      <option value="Energizing">Energizing</option>
+      <option value="Binaural Tingles">Binaural Tingles</option>
+    </select>
+
+    <button onclick="generatePrompt()">Generate Prompt</button>
+    <textarea id="result" placeholder="Your ASMR prompt will appear here..."></textarea>
+    <button onclick="copyPrompt()">📋 Copy Prompt</button>
+  </div>
+
+  <script>
+    function generatePrompt() {
+      const theme = document.getElementById('theme').value;
+      const sound = document.getElementById('sound').value;
+      const mood = document.getElementById('mood').value;
+
+      const prompt = `🎬 ASMR VIDEO PROMPT\n\nTitle: "${theme} for ${mood}"\n\nConcept:\nCreate an immersive ASMR video focused on ${theme.toLowerCase()} using ${sound.toLowerCase()} sounds. The goal is to create a ${mood.toLowerCase()} experience.\n\nScript Snippet:\n(Whispered) "Hey... tonight, we focus on ${sound.toLowerCase()}... just for you... get ready to feel tingles... and relax deeply..."\n\nUse soft lighting, stereo mic setup, and slow pacing for full sensory effect.`;
+
+      document.getElementById('result').value = prompt;
+    }
+
+    function copyPrompt() {
+      const textArea = document.getElementById('result');
+      textArea.select();
+      document.execCommand('copy');
+      alert("Prompt copied to clipboard!");
+    }
+  </script>
+
+</body>
+</html>
