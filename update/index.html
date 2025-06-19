@@ -117,17 +117,17 @@
       const mood = document.getElementById('mood').value;
       const dialogues = document.querySelectorAll('.dialogue-entry');
 
-      let script = `ASMR Theme: ${theme}\nSound Focus: ${sound}\nMood: ${mood}\n\nScript:\n`;
+      let script = `Create an immersive ASMR video focused on ${theme.toLowerCase()} using ${sound.toLowerCase()} sounds. The goal is to create a ${mood.toLowerCase()} experience.`;
 
       dialogues.forEach(entry => {
         const character = entry.querySelector('.character').value.trim();
         const text = entry.querySelector('.dialogue').value.trim();
         if (text) {
-          script += character ? `${character} whispered: "${text}"
-` : `${text}
-`;
+          script += character ? ` ${character} whispered: \"${text}\".` : ` ${text}`;
         }
       });
+
+      script += " Use soft lighting, stereo mic setup, and slow pacing for full sensory effect.";
 
       document.getElementById('result').value = script.trim();
     }
