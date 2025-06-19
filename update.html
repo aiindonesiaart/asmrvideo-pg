@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASMR Video Prompt Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #5c4d7d;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, button, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background: #5c4d7d;
+      color: white;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    button:hover {
+      background: #483c64;
+    }
+    textarea {
+      height: 180px;
+      resize: none;
+      margin-top: 15px;
+    }
+    .entry-block {
+      margin-top: 10px;
+      padding: 10px;
+      background: #f1f1f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🎧 ASMR Video Prompt Generator</h2>
+
+    <label for="theme">ASMR Theme</label>
+    <input list="themeList" id="theme" placeholder="e.g. Mic Brushing">
+    <datalist id="themeList">
+      <option value="Mic Brushing">
+      <option value="Mouth Sounds">
+      <option value="Ear Cleaning Roleplay">
+      <option value="Tapping & Crinkle">
+      <option value="Whisper Trigger Words">
+    </datalist>
+
+    <label for="sound">Sound Type</label>
+    <input list="soundList" id="sound" placeholder="e.g. Soft Taps">
+    <datalist id="soundList">
+      <option value="Soft Taps">
+      <option value="Wet Gel Sounds">
+      <option value="Paper Crinkles">
+      <option value="Gentle Brushing">
+      <option value="Slow Whisper">
+    </datalist>
+
+    <label for="mood">Video Mood</label>
+    <input list="moodList" id="mood" placeholder="e.g. Sleep Aid">
+    <datalist id="moodList">
+      <option value="Sleep Aid">
+      <option value="Deep Relaxation">
+      <option value="Energizing">
+      <option value="Binaural Tingles">
+    </datalist>
+
+    <button onclick="addDescription()">➕ Add Description</button>
+    <div id="descriptionContainer"></div>
+
+    <button onclick="addDialogueOnce()" id="addDialogueBtn">➕ Add Dialogue</button>
+    <div id="dialogueContainer"></div>
+
+    <button onclick="generateScript()">Generate Script</button>
+    <textarea id="result" placeholder="Generated ASMR script..."></textarea>
+    <button onclick="copyPrompt()">📋 Copy Script</button>
+  </div>
+
+  <script>
+    let dialogueAdded = false;
+
+    function addDescription() {
+      const container = document.getElementById('descriptionContainer');
+      if (!document.getElementById('description')) {
+        const textarea = document.createElement('textarea');
+        textarea.id = 'description';
+        textarea.placeholder = 'Write additional description for the scene...';
+        textarea.className = 'entry-block';
+        container.appendChild(textarea);
+      }
+    }
+
+    function addDialogueOnce() {
+      if (dialogueAdded) return;
+      const container = document.getElementById('dialogueContainer');
+      const div = document.createElement('div');
+      div.className = 'entry-block';
+      div.innerHTML = `
+        <input type="text" placeholder="Character (leave blank for narrator voice)" id="character">
+        <textarea placeholder="Dialogue..." id="dialogue" style="margin-top:10px;"></textarea>
+      `;
+      container.appendChild(div);
+      dialogueAdded = true;
+      document.getElementById('addDialogueBtn').disabled = true;
+    }
+
+    function generateScript() {
+      const theme = document.getElementById('theme').value.trim();
+      const sound = document.getElementById('sound').value.trim();
+      const mood = document.getElementById('mood').value.trim();
+      const character = document.getElementById('character') ? document.getElementById('character').value.trim() : "";
+      const dialogue = document.getElementById('dialogue') ? document.getElementById('dialogue').value.trim() : "";
+      const description = document.getElementById('description') ? document.getElementById('description').value.trim() : "";
+
+      let script = `Create an immersive ASMR video focused on ${theme.toLowerCase()} using ${sound.toLowerCase()} sounds. The goal is to create a ${mood.toLowerCase()} experience.`;
+
+      if (dialogue) {
+        script += character ? ` ${character} whispered: \"${dialogue}\".` : ` A female narrator voice says: \"${dialogue}\" (narrator is not visible in the video).`;
+      }
+
+      if (description) {
+        script += `\n\nScene Description: ${description}`;
+      }
+
+      script += "\n\nUse soft lighting, stereo mic setup, and slow pacing for full sensory effect.";
+
+      document.getElementById('result').value = script.trim();
+    }
+
+    function copyPrompt() {
+      const textArea = document.getElementById('result');
+      textArea.select();
+      document.execCommand('copy');
+      alert("Script copied to clipboard!");
+    }
+  </script>
+</body>
+</html>
