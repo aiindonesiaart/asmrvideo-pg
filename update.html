@@ -140,15 +140,15 @@
 
       let script = `Create an immersive ASMR video focused on ${theme.toLowerCase()} using ${sound.toLowerCase()} sounds. The goal is to create a ${mood.toLowerCase()} experience.`;
 
+      if (description) {
+        script += ` ${description}`;
+      }
+
       if (dialogue) {
         script += character ? ` ${character} whispered: \"${dialogue}\".` : ` A female narrator voice says: \"${dialogue}\" (narrator is not visible in the video).`;
       }
 
-      if (description) {
-        script += `\n\nScene Description: ${description}`;
-      }
-
-      script += "\n\nUse soft lighting, stereo mic setup, and slow pacing for full sensory effect.";
+      script += " Use soft lighting, stereo mic setup, and slow pacing for full sensory effect.";
 
       document.getElementById('result').value = script.trim();
     }
