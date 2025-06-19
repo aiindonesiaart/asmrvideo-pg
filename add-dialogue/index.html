@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASMR Video Prompt Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #5c4d7d;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    select, button, textarea, input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background: #5c4d7d;
+      color: white;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    button:hover {
+      background: #483c64;
+    }
+    textarea {
+      height: 180px;
+      resize: none;
+      margin-top: 15px;
+    }
+    .dialogue-entry {
+      margin-top: 10px;
+      padding: 10px;
+      background: #f1f1f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🎧 ASMR Video Prompt Generator</h2>
+
+    <label for="theme">ASMR Theme</label>
+    <select id="theme">
+      <option value="Mic Brushing">Mic Brushing</option>
+      <option value="Mouth Sounds">Mouth Sounds</option>
+      <option value="Ear Cleaning Roleplay">Ear Cleaning Roleplay</option>
+      <option value="Tapping & Crinkle">Tapping & Crinkle</option>
+      <option value="Whisper Trigger Words">Whisper Trigger Words</option>
+    </select>
+
+    <label for="sound">Sound Type</label>
+    <select id="sound">
+      <option value="Soft Taps">Soft Taps</option>
+      <option value="Wet Gel Sounds">Wet Gel Sounds</option>
+      <option value="Paper Crinkles">Paper Crinkles</option>
+      <option value="Gentle Brushing">Gentle Brushing</option>
+      <option value="Slow Whisper">Slow Whisper</option>
+    </select>
+
+    <label for="mood">Video Mood</label>
+    <select id="mood">
+      <option value="Sleep Aid">Sleep Aid</option>
+      <option value="Deep Relaxation">Deep Relaxation</option>
+      <option value="Energizing">Energizing</option>
+      <option value="Binaural Tingles">Binaural Tingles</option>
+    </select>
+
+    <div id="dialogues"></div>
+    <button onclick="addDialogue()">➕ Add Dialogue</button>
+
+    <button onclick="generateScript()">Generate Script</button>
+    <textarea id="result" placeholder="Generated ASMR script..."></textarea>
+    <button onclick="copyPrompt()">📋 Copy Script</button>
+  </div>
+
+  <script>
+    function addDialogue() {
+      const container = document.getElementById('dialogues');
+      const div = document.createElement('div');
+      div.className = 'dialogue-entry';
+      div.innerHTML = `
+        <input type="text" placeholder="Character (leave blank for narrative)" class="character">
+        <textarea placeholder="Dialogue..." class="dialogue" style="margin-top:10px;"></textarea>
+      `;
+      container.appendChild(div);
+    }
+
+    function generateScript() {
+      const theme = document.getElementById('theme').value;
+      const sound = document.getElementById('sound').value;
+      const mood = document.getElementById('mood').value;
+      const dialogues = document.querySelectorAll('.dialogue-entry');
+
+      let script = `ASMR Theme: ${theme}\nSound Focus: ${sound}\nMood: ${mood}\n\nScript:\n`;
+
+      dialogues.forEach(entry => {
+        const character = entry.querySelector('.character').value.trim();
+        const text = entry.querySelector('.dialogue').value.trim();
+        if (text) {
+          script += character ? `${character} whispered: "${text}"
+` : `${text}
+`;
+        }
+      });
+
+      document.getElementById('result').value = script.trim();
+    }
+
+    function copyPrompt() {
+      const textArea = document.getElementById('result');
+      textArea.select();
+      document.execCommand('copy');
+      alert("Script copied to clipboard!");
+    }
+  </script>
+</body>
+</html>
